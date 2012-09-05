@@ -67,8 +67,11 @@ CLASS METHODS
   time_remaining_estimate()
         my $sec = Cocoa::BatteryInfo->time_remaining_estimate;
 
-    Returns estimated time remaining until all power sources are empty (in
-    seconds).
+    Returns 'unknown' if the OS cannot determine the time remaining. Returns
+    'unlimited' if the system has an unlimited power source.
+
+    Otherwise returns estimated time remaining until all power sources are
+    empty (in seconds).
 
   battery_warning_level()
         my $level = Cocoa::BatteryInfo->battery_warning_level;
@@ -77,13 +80,13 @@ CLASS METHODS
 
     $level is one of following levels:
 
-    *   Cocoa::BatteryInfo::LowBatteryWarningNone (== 0) (No battery
+    *   Cocoa::BatteryInfo::LowBatteryWarningNone (== 1) (No battery
         warnings)
 
-    *   Cocoa::BatteryInfo::LowBatteryWarningEarly (== 1) (Early battery
+    *   Cocoa::BatteryInfo::LowBatteryWarningEarly (== 2) (Early battery
         warnings)
 
-    *   Cocoa::BatteryInfo::LowBatteryWarningFinal (== 2) (Final battery
+    *   Cocoa::BatteryInfo::LowBatteryWarningFinal (== 3) (Final battery
         warnings)
 
 CALLBACKS

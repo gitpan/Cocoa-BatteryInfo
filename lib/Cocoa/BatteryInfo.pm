@@ -3,12 +3,12 @@ use strict;
 use warnings;
 use XSLoader;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use constant +{
-    LowBatteryWarningNone  => 0,
-    LowBatteryWarningEarly => 1,
-    LowBatteryWarningFinal => 2,
+    LowBatteryWarningNone  => 1,
+    LowBatteryWarningEarly => 2,
+    LowBatteryWarningFinal => 3,
 };
 
 XSLoader::load __PACKAGE__, $VERSION;
@@ -91,7 +91,10 @@ Returns list of power sources that connected to current machine.
 
     my $sec = Cocoa::BatteryInfo->time_remaining_estimate;
 
-Returns estimated time remaining until all power sources are empty (in seconds).
+Returns 'unknown' if the OS cannot determine the time remaining.
+Returns 'unlimited' if the system has an unlimited power source.
+
+Otherwise returns estimated time remaining until all power sources are empty (in seconds).
 
 =head2 battery_warning_level()
 
@@ -103,11 +106,11 @@ C<$level> is one of following levels:
 
 =over 4
 
-=item * Cocoa::BatteryInfo::LowBatteryWarningNone (== 0) (No battery warnings)
+=item * Cocoa::BatteryInfo::LowBatteryWarningNone (== 1) (No battery warnings)
 
-=item * Cocoa::BatteryInfo::LowBatteryWarningEarly (== 1) (Early battery warnings)
+=item * Cocoa::BatteryInfo::LowBatteryWarningEarly (== 2) (Early battery warnings)
 
-=item * Cocoa::BatteryInfo::LowBatteryWarningFinal (== 2) (Final battery warnings)
+=item * Cocoa::BatteryInfo::LowBatteryWarningFinal (== 3) (Final battery warnings)
 
 =back
 
